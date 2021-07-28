@@ -1,4 +1,4 @@
-.sign-container {
+.recover-container {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -23,16 +23,15 @@
       background: none;
       max-width: 320px;
       margin: 0 auto;
-  
-    
     }
   }
   
-
   .error-message {
       color:#cc1616;
   }
+ 
   
+ 
   .fade-in {
     animation: fadein 2s;
   }

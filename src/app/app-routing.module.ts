@@ -20,8 +20,8 @@ const routes: Routes = [
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'list-chat',
-    loadChildren: () => import('./list-chat/list-chat.module').then( m => m.ListChatPageModule)
+    path: 'recover',
+    loadChildren: () => import('./recover/recover.module').then( m => m.RecoverPageModule)
   },
 ];
 

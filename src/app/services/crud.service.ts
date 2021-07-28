@@ -2,48 +2,40 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
-export class CHAT{
-  $key:string;
-  mensaje:string;
-  usuario:string;
+export class TODO {
+  $key: string;
+  name: string;
+  uid: string;
+  message: string;
 }
 
+export class USER{
+  $key: string;
+  email: string;
+  uid: string;
+  name: string;
+}
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+
 
 export class CrudService {
 
-  mensaje:string;
-  usuario:string;
-  constructor(
-    private ngFirestore:AngularFirestore,
-    private router: Router
-  ) { }
-
-  create(mensaje, usuario){
-    return this.ngFirestore.collection('chats').add({
-      msg: mensaje,
-      user:usuario
-    });
+  constructor(private ngFirestore: AngularFirestore, private router: Router) {}
+  
+  create(todo: TODO) {
+    return this.ngFirestore.collection('chats').add(todo);
   }
 
-  getChats(){
-    return this.ngFirestore.collection('chats').snapshotChanges();
+  createUser(values, id) {
+    return this.ngFirestore.collection('users').doc(id).set(values);
   }
-
-  getChat(id){
-    return this.ngFirestore.collection('chats').doc(id).valueChanges();
+  getUser(id) {
+    return this.ngFirestore.collection('users').doc(id).valueChanges();
   }
-
-  update(id, todo: CHAT){
-    this.ngFirestore.collection('chats').doc(id).update(todo)
-    .then(()=>{
-      this.router.navigate(['/list-chats']);
-    }).catch(error=>console.log(error));;
+  getChats() {
+    return this.ngFirestore.collection('chats', ref=> ref.orderBy("create", "asc")).snapshotChanges();
   }
-
-  delete(id:string){
-    this.ngFirestore.doc('chats/'+id).delete();
-  }
+  
 }

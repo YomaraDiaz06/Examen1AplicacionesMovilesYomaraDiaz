@@ -9,11 +9,11 @@ import { NavController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-recover',
+  templateUrl: './recover.page.html',
+  styleUrls: ['./recover.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class RecoverPage implements OnInit {
 
   validations_form: FormGroup;
   errorMessage: string = '';
@@ -33,33 +33,22 @@ export class LoginPage implements OnInit {
           Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
         ])
       ),
-      password: new FormControl(
-        '',
-        Validators.compose([Validators.minLength(5), Validators.required])
-      ),
     });
   }
 
   validation_messages = {
     email: [
-      { type: 'required', message: 'Ingrese un correo electrónico.' },
-      { type: 'pattern', message: 'Ingrese un correo electronico válido.' },
-    ],
-    password: [
-      { type: 'required', message: 'Ingrese su contraseña.' },
-      {
-        type: 'minlength',
-        message: 'Su contraseña debe tener con mínimo 6 caracteres.',
-      },
+      { type: 'required', message: 'Ingrese su correo electrónico' },
+      { type: 'pattern', message: 'Ingrese un correo electrónico válido' },
     ],
   };
 
-  loginUser(value) {
-    this.authService.loginUser(value).then(
+  RecoverPassword(value) {
+    this.authService.recoverPasswordUser(value).then(
       (res) => {
         console.log(res);
         this.errorMessage = '';
-        this.navCtrl.navigateForward('/home');
+        this.navCtrl.navigateForward('/login');
       },
       (err) => {
         this.errorMessage = err.message;
@@ -67,13 +56,8 @@ export class LoginPage implements OnInit {
     );
   }
 
-  goToRecoverPasswordPage() {
-    this.navCtrl.navigateForward('/recover');
+  goToLoginPage() {
+    this.navCtrl.navigateForward('/login');
   }
-  
-  goToRegisterPage() {
-    this.navCtrl.navigateForward('/register');
-  }
-
 
 }
